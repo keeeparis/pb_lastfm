@@ -1,0 +1,24 @@
+name: Build and Deploy
+on: 
+  push:
+    branches: [master]
+
+jobs: 
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Deploy python bot
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+
+          script: |
+            cd /var/www/pb_lastfm
+            git pull
+            docker build -t pb_lastfm . # остается рестартануть контейнер со всеми env переменными
+            docker rm -f pb_lastfm
+            docker run -d --env-file .env --name pb_lastfm --network network_local pb_lastfm
+            
+            
