@@ -2,3 +2,4 @@ peewee==3.16.2
 python-decouple==3.8
 python-telegram-bot==20.7
 Requests==2.31.0
+pymysql==1.1.0
