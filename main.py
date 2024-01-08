@@ -486,16 +486,12 @@ def main() -> None:
             ],
           },
           fallbacks=[],
-          name="TopData",
-          persistent=True,
           map_to_parent={
             END: SELECTING_ACTION,
           }
         )
       ],
     },
-    name='LastFM',
-    persistent=True,
     fallbacks=[CommandHandler("start", start_command)],
   )
 
