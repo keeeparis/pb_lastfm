@@ -496,7 +496,7 @@ def main() -> None:
   )
 
   application.add_handler(conv_handler)
-  application.add_error_handler(error_handler)
+  # application.add_error_handler(error_handler)
       
   # Start Bot
   application.run_polling(allowed_updates=Update.ALL_TYPES)
