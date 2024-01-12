@@ -149,7 +149,7 @@ def getTotalPage(results, user_data):
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
   """Send a message when the command /start is issued."""  
-  db.connect(reuse_if_open=True)
+  # db.connect(reuse_if_open=True)
   
   username = context.user_data.get(USERNAME)
   
@@ -163,6 +163,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
   if not user_exists(current_user.id):
     create_user(id=current_user.id, username=current_user.username, first_name=current_user.first_name, last_name=current_user.last_name)
 
+  # db.close()
   
   keyboard = [
     [
@@ -310,7 +311,7 @@ async def get_results(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
   
   # db
   current_user = update.effective_user
-  db.connect(reuse_if_open=True)
+  # db.connect(reuse_if_open=True)
   
   create_interaction(
     user_id=current_user.id, 
@@ -319,7 +320,7 @@ async def get_results(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     data_page=user_data[CURRENT_PAGE]
   )
   
-  
+  # db.close()
   
   return await show_results(update, context)
 
@@ -429,8 +430,9 @@ async def save_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
   
   current_user = update.effective_user
   
-  db.connect(reuse_if_open=True)
+  # db.connect(reuse_if_open=True)
   update_last_fm_username(user_id=current_user.id, last_fm_username=update.message.text)
+  # db.close()
   
   user_data[START_OVER] = True
 
