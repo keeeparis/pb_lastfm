@@ -448,7 +448,15 @@ async def end_second_level(update: Update, context: ContextTypes.DEFAULT_TYPE) -
 async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
   print(context.error)
   pass
+  
+async def bots_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+  list_of_bots = """1. <b>Личностный тест</b> - @five_factor_model_bot\n2. <b>Сколько сантиметров?</b> - @pe_size_bot\n3. <b>Бросаться снежками</b> - @throw_snowball_bot\n\nПо интересующим вопросам, @keeeparis"""
 
+  return await update.message.reply_text(
+    list_of_bots,
+    parse_mode=ParseMode.HTML
+  )
+  
 
 def main() -> None:
   """Start the bot."""
@@ -498,6 +506,7 @@ def main() -> None:
   )
 
   application.add_handler(conv_handler)
+  application.add_handler(CommandHandler('bots', bots_command))
   # application.add_error_handler(error_handler)
       
   # Start Bot
