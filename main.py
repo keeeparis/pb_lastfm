@@ -445,9 +445,8 @@ async def end_second_level(update: Update, context: ContextTypes.DEFAULT_TYPE) -
 
   return END
 
-async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-  print(context.error)
-  pass
+async def error_handler(update, context):
+  print(f'Update {update} caused error {context.error}')
   
 async def bots_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
   list_of_bots = """1. <b>Личностный тест</b> - @five_factor_model_bot\n2. <b>Сколько сантиметров?</b> - @pe_size_bot\n3. <b>Бросаться снежками</b> - @throw_snowball_bot\n\nПо интересующим вопросам, @keeeparis"""
@@ -507,7 +506,7 @@ def main() -> None:
 
   application.add_handler(conv_handler)
   application.add_handler(CommandHandler('bots', bots_command))
-  # application.add_error_handler(error_handler)
+  application.add_error_handler(error_handler)
       
   # Start Bot
   application.run_polling(allowed_updates=Update.ALL_TYPES)
